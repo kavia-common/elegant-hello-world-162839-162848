@@ -17,8 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-white" suppressHydrationWarning>
-        {children}
+      <body className="min-h-screen bg-white relative z-0" suppressHydrationWarning>
+        {/* Main app content is layered above subtle background effects */}
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );

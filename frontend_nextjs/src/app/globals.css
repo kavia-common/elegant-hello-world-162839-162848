@@ -27,6 +27,66 @@ html, body {
   color: var(--color-primary);
 }
 
+/* Full-page background container on body using CSS variables */
+body {
+  /* Layered background:
+     1) Soft angular gradient wash using accent + secondary hues.
+     2) Subtle dot grid pattern on top with very low opacity.
+  */
+  --bg-gradient: radial-gradient(1200px 800px at 80% -10%, rgba(34,211,238,0.22), rgba(34,211,238,0) 60%),
+                  radial-gradient(900px 700px at -10% 110%, rgba(100,116,139,0.18), rgba(100,116,139,0) 60%),
+                  linear-gradient(180deg, #f8fafc 0%, #ffffff 40%, #f8fafc 100%);
+  --bg-grid: radial-gradient(circle at center, rgba(30,41,59,0.06) 1px, transparent 1px);
+  --bg-grid-size: 22px 22px;
+
+  background-image: var(--bg-gradient), var(--bg-grid);
+  background-size: auto, var(--bg-grid-size);
+  background-position: center, 0 0;
+  background-attachment: fixed, fixed;
+}
+
+/* Background animated blobs (used via pseudo element on body) */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  width: 420px;
+  height: 420px;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(40px);
+  opacity: 0.35;
+  z-index: 0;
+}
+
+body::before {
+  left: -140px;
+  top: -80px;
+  background: radial-gradient(circle at 30% 30%, rgba(34,211,238,0.55), rgba(34,211,238,0.0) 60%);
+  animation: drift1 16s ease-in-out infinite;
+}
+
+body::after {
+  right: -120px;
+  bottom: -120px;
+  background: radial-gradient(circle at 70% 70%, rgba(100,116,139,0.45), rgba(100,116,139,0.0) 60%);
+  animation: drift2 20s ease-in-out infinite;
+}
+
+/* Gentle drifting animations for blobs */
+@keyframes drift1 {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(20px, -12px) scale(1.05); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+@keyframes drift2 {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(-16px, 18px) scale(0.98); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
 /* Import a sleek modern font (Inter) from Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
